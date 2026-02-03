@@ -1,11 +1,9 @@
-import React from 'react';
-import { Phone, Mail, MapPin } from 'lucide-react';
 
 export default function CVTemplateMinimalist({ data }) {
     if (!data) return null;
 
     return (
-        <div className="bg-white mx-auto shadow-lg" style={{ width: '794px', height: '1123px' }}>
+        <div id="cv-template-root" className="bg-white mx-auto shadow-lg" style={{ width: '794px', height: '1123px' }}>
             <div className="grid grid-cols-[200px_1fr] h-full">
                 {/* Sidebar - Izquierda */}
                 <div className="bg-gray-100 px-5 py-8 border-r-2 border-gray-300 overflow-hidden">

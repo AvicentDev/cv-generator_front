@@ -1,11 +1,10 @@
-import React from 'react';
-import { Mail, Phone, MapPin, Calendar } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 
 export default function CVTemplateClassic({ data, isPreview = false }) {
     if (!data) return null;
 
     return (
-        <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+        <div id="cv-template-root" className="bg-white rounded-3xl shadow-2xl overflow-hidden">
             {/* Header Clásico */}
             <div className="bg-gradient-to-r from-blue-900 to-blue-800 px-12 py-8 text-white">
                 <h1 className="text-4xl font-serif font-bold mb-1">{data.nombre || 'Nombre Completo'}</h1>

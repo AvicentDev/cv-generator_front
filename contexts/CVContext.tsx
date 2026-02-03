@@ -67,11 +67,14 @@ export function CVProvider({ children }: { children: React.ReactNode }) {
     const savedData = localStorage.getItem('cvData')
     const savedComplete = localStorage.getItem('cvComplete')
 
-    if (savedData) {
+    // Si el CV está completo, limpiamos todo para empezar de nuevo
+    if (savedComplete && JSON.parse(savedComplete) === true) {
+      localStorage.removeItem('cvData')
+      localStorage.removeItem('cvComplete')
+      // No cargamos nada, dejamos el estado inicial limpio
+    } else if (savedData) {
+      // Solo cargamos datos si el CV no está completo
       setCvData(JSON.parse(savedData))
-    }
-    if (savedComplete) {
-      setIsComplete(JSON.parse(savedComplete))
     }
   }, [])
 

@@ -1,11 +1,10 @@
-import React from 'react';
-import { Printer, User, Briefcase, GraduationCap, Lightbulb, FileText } from 'lucide-react';
+import { Briefcase, FileText, GraduationCap, Lightbulb, User } from 'lucide-react';
 
 export default function CVTemplateModern({ data, isPreview = false }) {
     if (!data) return null;
 
     return (
-        <div className={`bg-slate-800/40 backdrop-blur-sm rounded-3xl border border-slate-700/50 shadow-2xl overflow-hidden ${isPreview ? 'print:shadow-none print:border-none print:bg-white' : ''}`}>
+        <div id="cv-template-root" className={`bg-slate-800/40 backdrop-blur-sm rounded-3xl border border-slate-700/50 shadow-2xl overflow-hidden ${isPreview ? 'print:shadow-none print:border-none print:bg-white' : ''}`}>
             {/* Header del CV */}
             <div className="bg-gradient-to-r from-violet-600 via-purple-600 to-violet-600 px-10 py-12 text-white relative overflow-hidden">
                 <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDAgTSAwIDIwIEwgNDAgMjAgTSAyMCAwIEwgMjAgNDAgTSAwIDMwIEwgNDAgMzAgTSAzMCAwIEwgMzAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjAzIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-40"></div>
@@ -95,10 +94,10 @@ export default function CVTemplateModern({ data, isPreview = false }) {
             {/* Footer del CV */}
             <div className="bg-slate-900/50 backdrop-blur-sm px-10 py-5 border-t border-slate-700/50 print:bg-slate-50 print:border-slate-200">
                 <p className="text-xs text-slate-500 text-center print:text-slate-400">
-                    Generado con CV Generator AI • {new Date().toLocaleDateString('es-ES', { 
-                        year: 'numeric', 
-                        month: 'long', 
-                        day: 'numeric' 
+                    Generado con CV Generator AI • {new Date().toLocaleDateString('es-ES', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
                     })}
                 </p>
             </div>

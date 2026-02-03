@@ -4,12 +4,100 @@ import { CVPreview } from '@/components/cv-preview'
 import { useCVContext } from '@/contexts/CVContext'
 import { ArrowLeft, Download, Sparkles } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { useState } from 'react'
 
 export default function PreviewPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const template = searchParams.get('template') || 'classic'
   const { cvData, resetCV } = useCVContext()
+  const [isDownloading, setIsDownloading] = useState(false)
+
+  const handleDownloadPDF = async () => {
+    setIsDownloading(true)
+    try {
+      // Importar dinámicamente las librerías
+      const html2canvas = (await import('html2canvas')).default
+      const jsPDF = (await import('jspdf')).default
+
+      // Buscar el elemento del CV directamente (sin márgenes del contenedor padre)
+      const cvElement = document.getElementById('cv-template-root') as HTMLElement
+
+      if (!cvElement) {
+        alert('No se pudo encontrar el CV para descargar')
+        return
+      }
+
+      // Capturar el CV como imagen con alta calidad
+      const canvas = await html2canvas(cvElement, {
+        scale: 2, // Mayor calidad
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#ffffff'
+      })
+
+      // Crear PDF en formato A4
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'px',
+        format: 'a4',
+        hotfixes: ['px_scaling']
+      })
+
+      // Dimensiones de la página A4 en píxeles
+      const pageWidth = pdf.internal.pageSize.getWidth()
+      const pageHeight = pdf.internal.pageSize.getHeight()
+
+      // Dimensiones del canvas
+      const imgWidth = canvas.width
+      const imgHeight = canvas.height
+
+      // Calcular el ratio para ajustar el ancho al A4 (sin márgenes)
+      const widthRatio = pageWidth / imgWidth
+      const scaledWidth = pageWidth
+      const scaledHeight = imgHeight * widthRatio
+
+      // Convertir canvas a imagen
+      const imgData = canvas.toDataURL('image/png', 1.0)
+
+      // Tolerancia de 5px para evitar crear páginas adicionales por diferencias mínimas
+      const tolerance = 5
+
+      // Si el contenido cabe en una página (con tolerancia)
+      if (scaledHeight <= pageHeight + tolerance) {
+        // Si es ligeramente más grande, ajustar para que quepa exactamente
+        const finalHeight = Math.min(scaledHeight, pageHeight)
+        const finalWidth = scaledWidth * (finalHeight / scaledHeight)
+        pdf.addImage(imgData, 'PNG', 0, 0, finalWidth, finalHeight, undefined, 'FAST')
+      } else {
+        // Si necesita múltiples páginas
+        let yPosition = 0
+        let remainingHeight = scaledHeight
+
+        while (remainingHeight > tolerance) {
+          // Agregar la imagen en la posición actual
+          pdf.addImage(imgData, 'PNG', 0, -yPosition, scaledWidth, scaledHeight, undefined, 'FAST')
+
+          remainingHeight -= pageHeight
+          yPosition += pageHeight
+
+          // Si aún queda contenido significativo, agregar nueva página
+          if (remainingHeight > tolerance) {
+            pdf.addPage()
+          }
+        }
+      }
+
+      // Descargar el PDF
+      const fileName = `CV_${cvData.nombre || 'Documento'}.pdf`.replace(/\s+/g, '_')
+      pdf.save(fileName)
+    } catch (error) {
+      console.error('Error al generar PDF:', error)
+      alert('Hubo un error al generar el PDF. Por favor, intenta de nuevo.')
+    } finally {
+      setIsDownloading(false)
+    }
+  }
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
@@ -53,10 +141,12 @@ export default function PreviewPage() {
             </button>
 
             <button
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 transition-all text-sm"
+              onClick={handleDownloadPDF}
+              disabled={isDownloading}
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 transition-all text-sm disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <Download className="h-4 w-4" />
-              Descargar PDF
+              <Download className={`h-4 w-4 ${isDownloading ? 'animate-bounce' : ''}`} />
+              {isDownloading ? 'Generando PDF...' : 'Descargar PDF'}
             </button>
           </div>
         </div>

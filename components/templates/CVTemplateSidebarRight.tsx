@@ -1,11 +1,10 @@
-import React from 'react';
-import { Phone, Mail, MapPin } from 'lucide-react';
+import { Mail, MapPin, Phone } from 'lucide-react';
 
 export default function CVTemplateSidebarRight({ data }) {
     if (!data) return null;
 
     return (
-        <div className="bg-white mx-auto shadow-lg" style={{ width: '794px', height: '1123px' }}>
+        <div id="cv-template-root" className="bg-white mx-auto shadow-lg" style={{ width: '794px', height: '1123px' }}>
             <div className="grid grid-cols-[490px_304px] h-full">
                 {/* Main Content - Izquierda */}
                 <div className="bg-gray-50 px-8 py-12 overflow-hidden">
