@@ -4,12 +4,12 @@ import { CVPreview } from '@/components/cv-preview'
 import { useCVContext } from '@/contexts/CVContext'
 import { ArrowLeft, Download, Sparkles } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 
-export default function PreviewPage() {
+function PreviewContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const template = searchParams.get('template') || 'classic'
+  const template = searchParams.get('template') || 'sidebar-right'
   const { cvData, resetCV } = useCVContext()
   const [isDownloading, setIsDownloading] = useState(false)
 
@@ -157,12 +157,26 @@ export default function PreviewPage() {
         <CVPreview
           cvData={cvData}
           isComplete={true}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           initialTemplate={template as any}
         />
       </div>
 
-      {/* Footer */}
-
     </main>
+  )
+}
+
+export default function PreviewPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+        <div className="text-slate-400 flex flex-col items-center gap-4">
+          <div className="w-8 h-8 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin" />
+          <p>Cargando vista previa...</p>
+        </div>
+      </div>
+    }>
+      <PreviewContent />
+    </Suspense>
   )
 }
