@@ -1,7 +1,7 @@
-import React from 'react';
 import { Check } from 'lucide-react';
-import CVTemplateSidebarRight from './templates/CVTemplateSidebarRight';
+import React from 'react';
 import CVTemplateSidebarLeft from './templates/CVTemplateSidebarLeft';
+import CVTemplateSidebarRight from './templates/CVTemplateSidebarRight';
 
 const templates = [
     {
@@ -20,7 +20,13 @@ const templates = [
     }
 ];
 
-export default function TemplateSelector({ onSelectTemplate, cvData }) {
+interface TemplateSelectorProps {
+    onSelectTemplate: (templateId: string) => void;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    cvData: any;
+}
+
+export default function TemplateSelector({ onSelectTemplate, cvData }: TemplateSelectorProps) {
     const [hoveredTemplate, setHoveredTemplate] = React.useState(null);
 
     return (
@@ -50,10 +56,10 @@ export default function TemplateSelector({ onSelectTemplate, cvData }) {
                                        <TemplateComponent data={cvData} config={template.config} isPreview={true} />
                                     </div>
                                 </div>
-                                
+
                                 {/* Overlay gradiente en hover */}
                                 <div className={`absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent transition-opacity duration-300 ${isHovered ? 'opacity-60' : 'opacity-80'}`} />
-                                
+
                                 {/* Badge del template */}
                                 <div className="absolute top-4 left-4">
                                     <div className={`px-3 py-1.5 bg-gradient-to-r ${template.color} rounded-full text-white text-xs font-semibold shadow-lg`}>
