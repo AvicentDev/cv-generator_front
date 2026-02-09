@@ -20,5 +20,5 @@
     }
   },
   "include": ["app", "components"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+
 }

@@ -1,29 +1,29 @@
 'use client'
 
-import React, { useEffect } from 'react';
-import { Printer, FileText } from 'lucide-react';
-import CVTemplateSidebarRight from './templates/CVTemplateSidebarRight';
+import { FileText, Printer } from 'lucide-react';
+import { useEffect } from 'react';
 import CVTemplateSidebarLeft from './templates/CVTemplateSidebarLeft';
-import CVTemplateClassic from './templates/CVTemplateClassic';
-import CVTemplateCreative from './templates/CVTemplateCreative';
-import CVTemplateModern from './templates/CVTemplateModern';
+import CVTemplateSidebarRight from './templates/CVTemplateSidebarRight';
 
 interface CVPreviewProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   cvData?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: any;
   template?: string;
   initialTemplate?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   customConfig?: any;
   isComplete?: boolean;
 }
 
-export function CVPreview({ 
-  cvData, 
-  data, 
-  template, 
+export function CVPreview({
+  cvData,
+  data,
+  template,
   initialTemplate,
   customConfig = null,
-  isComplete 
+  isComplete: _isComplete
 }: CVPreviewProps) {
     // Debug: ver qué datos llegan
     useEffect(() => {
@@ -35,14 +35,14 @@ export function CVPreview({
 
     // Usar cvData o data, dependiendo de qué prop se pase
     const cvInfo = cvData || data;
-    
+
     // Verificar si hay algún dato
     const hasData = cvInfo && (
-        cvInfo.nombre || 
-        cvInfo.perfil || 
-        cvInfo.experiencia || 
-        cvInfo.educacion || 
-        cvInfo.habilidades || 
+        cvInfo.nombre ||
+        cvInfo.perfil ||
+        cvInfo.experiencia ||
+        cvInfo.educacion ||
+        cvInfo.habilidades ||
         cvInfo.contacto
     );
 
@@ -71,20 +71,14 @@ export function CVPreview({
     };
 
     // Usar template o initialTemplate
-    const selectedTemplate = template || initialTemplate || 'classic';
+    const selectedTemplate = template || initialTemplate || 'sidebar-right';
 
     const templates = {
         'sidebar-right': CVTemplateSidebarRight,
         'sidebar-left': CVTemplateSidebarLeft,
-        'classic': CVTemplateClassic,
-        'creative': CVTemplateCreative,
-        'modern': CVTemplateModern,
-        'minimal': CVTemplateClassic,
-        'custom': CVTemplateModern,
-        'minimalist': CVTemplateSidebarLeft,
     };
 
-    const SelectedTemplate = templates[selectedTemplate as keyof typeof templates] || CVTemplateClassic;
+    const SelectedTemplate = templates[selectedTemplate as keyof typeof templates] || CVTemplateSidebarRight;
 
     return (
         <div className="space-y-5">

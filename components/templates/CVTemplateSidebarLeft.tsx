@@ -1,6 +1,15 @@
 import { Briefcase, GraduationCap, User } from 'lucide-react';
 
-export default function CVTemplateSidebarLeft({ data }) {
+import { CVData } from '../cv-chat';
+
+interface TemplateProps {
+    data: CVData;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    config?: any;
+    isPreview?: boolean;
+}
+
+export default function CVTemplateSidebarLeft({ data }: TemplateProps) {
     if (!data) return null;
 
     return (

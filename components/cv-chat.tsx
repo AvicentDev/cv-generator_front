@@ -38,7 +38,7 @@ interface CVChatProps {
 const STEP_LABELS = ['Nombre', 'Perfil', 'Experiencia', 'Educación', 'Habilidades']
 const TOTAL_STEPS = 5
 
-export function CVChat({ cvData, onCvDataChange, isComplete, onCompleteChange }: CVChatProps) {
+export function CVChat({ cvData: _cvData, onCvDataChange, isComplete, onCompleteChange }: CVChatProps) {
   const router = useRouter()
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')

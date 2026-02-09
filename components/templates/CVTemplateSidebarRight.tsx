@@ -1,5 +1,14 @@
 
-export default function CVTemplateSidebarRight({ data }) {
+import { CVData } from '../cv-chat';
+
+interface TemplateProps {
+    data: CVData;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    config?: any;
+    isPreview?: boolean;
+}
+
+export default function CVTemplateSidebarRight({ data }: TemplateProps) {
     if (!data) return null;
 
     return (

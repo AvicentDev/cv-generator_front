@@ -1,9 +1,21 @@
 import { Check } from 'lucide-react';
 import React from 'react';
+import { CVData } from './cv-chat';
 import CVTemplateSidebarLeft from './templates/CVTemplateSidebarLeft';
 import CVTemplateSidebarRight from './templates/CVTemplateSidebarRight';
 
-const templates = [
+interface Template {
+    id: string;
+    name: string;
+    description: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    component: React.ComponentType<{ data: CVData; config?: any; isPreview?: boolean }>;
+    color: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    config?: any;
+}
+
+const templates: Template[] = [
     {
         id: 'sidebar-right',
         name: 'Sidebar Rojo',
@@ -27,7 +39,7 @@ interface TemplateSelectorProps {
 }
 
 export default function TemplateSelector({ onSelectTemplate, cvData }: TemplateSelectorProps) {
-    const [hoveredTemplate, setHoveredTemplate] = React.useState(null);
+    const [hoveredTemplate, setHoveredTemplate] = React.useState<string | null>(null);
 
     return (
         <div className="space-y-6">

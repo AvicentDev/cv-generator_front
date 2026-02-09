@@ -1,36 +1,37 @@
 'use client'
 
-import CVTemplateCreative from '@/components/templates/CVTemplateCreative'
-import CVTemplateMinimalist from '@/components/templates/CVTemplateMinimalist'
+import CVTemplateSidebarLeft from '@/components/templates/CVTemplateSidebarLeft'
+import CVTemplateSidebarRight from '@/components/templates/CVTemplateSidebarRight'
 import { useCVContext } from '@/contexts/CVContext'
 import { Check, Sparkles } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
-type TemplateType = 'minimalist' | 'creative'
+type TemplateType = 'sidebar-left' | 'sidebar-right'
 
 interface Template {
   id: TemplateType
   name: string
   description: string
   gradient: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   component: any
 }
 
 const templates: Template[] = [
   {
-    id: 'minimalist',
+    id: 'sidebar-left',
     name: 'Sidebar Izquierda',
     description: 'CV moderno con barra lateral a la izquierda',
     gradient: 'from-slate-600 to-slate-800',
-    component: CVTemplateMinimalist
+    component: CVTemplateSidebarLeft
   },
   {
-    id: 'creative',
+    id: 'sidebar-right',
     name: 'Sidebar Rojo',
     description: 'CV profesional con barra lateral roja a la derecha',
     gradient: 'from-red-600 to-red-700',
-    component: CVTemplateCreative
+    component: CVTemplateSidebarRight
   },
 ]
 
