@@ -34,6 +34,7 @@ export interface AnswerResponse {
   };
   cv?: {
     nombre: string;
+    titulo?: string;
     perfil: string;
     experiencia: string;
     educacion: string;

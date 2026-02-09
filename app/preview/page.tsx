@@ -162,11 +162,7 @@ export default function PreviewPage() {
       </div>
 
       {/* Footer */}
-      <div className="py-4 text-center">
-        <p className="text-xs text-slate-600">
-          CV Generator AI • Powered by IA
-        </p>
-      </div>
+
     </main>
   )
 }

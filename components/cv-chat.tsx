@@ -141,6 +141,7 @@ export function CVChat({ cvData, onCvDataChange, isComplete, onCompleteChange }:
         // Actualizar los datos del CV con la respuesta del backend
         onCvDataChange({
           nombre: response.cv.nombre || '',
+          titulo: response.cv.titulo || '',
           perfil: response.cv.perfil || '',
           experiencia: response.cv.experiencia || '',
           educacion: response.cv.educacion || '',
@@ -281,7 +282,7 @@ export function CVChat({ cvData, onCvDataChange, isComplete, onCompleteChange }:
                 ? "Error de conexión"
                 : isComplete
                 ? "Conversación completada"
-                : "Escribe tu respuesta..."
+                : "Escribe de forma natural, como hablarías normalmente..."
             }
             className="w-full bg-slate-800/60 backdrop-blur-sm border border-slate-700/50 rounded-2xl px-6 py-4 pr-14 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-xl"
           />

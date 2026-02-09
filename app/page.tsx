@@ -50,11 +50,7 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <div className="py-6 text-center bg-slate-950/95">
-        <p className="text-sm text-slate-500">
-          CV Generator AI • Powered by IA
-        </p>
-      </div>
+
     </main>
   )
 }

@@ -181,11 +181,7 @@ export default function TemplatesPage() {
         </div>
 
         {/* Footer */}
-        <div className="mt-16 text-center">
-          <p className="text-sm text-slate-500">
-            CV Generator AI • Powered by IA
-          </p>
-        </div>
+
       </div>
     </main>
   )
